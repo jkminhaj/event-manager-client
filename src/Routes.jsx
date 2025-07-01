@@ -1,5 +1,9 @@
 import { createBrowserRouter } from "react-router";
 import Root from "./Root";
+import Home from "./Pages/Home/Home";
+import Events from "./Pages/Events/Events";
+import AddEvent from "./Pages/AddEvent/AddEvent";
+import MyEvents from "./Pages/MyEvents/MyEvents";
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +13,19 @@ export const router = createBrowserRouter([
     children: [
         {
             path:"/",
-            element:<p>I am home</p>
+            element:<Home/>
+        },
+        {
+            path:"/events",
+            element:<Events/>
+        },
+        {
+            path:"/addEvents",
+            element:<AddEvent/>
+        },
+        {
+            path:"/myEvents",
+            element:<MyEvents/>
         }
     ]
   },
