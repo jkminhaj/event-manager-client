@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import EventCard from "../../Components/Navigation/Events/EventCard";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyEvents = () => {
     const user = JSON.parse(localStorage.getItem("user")) || null;
@@ -36,7 +37,7 @@ const MyEvents = () => {
                     icon: "success"
                 });
 
-                loadEvents(); 
+                loadEvents();
             }
         } catch (err) {
             console.error(err);
@@ -50,17 +51,25 @@ const MyEvents = () => {
 
     return (
         <div>
-            Events {events ? events.length : 0}
-
+            
+            {events && !events.length ==0 && <p className="mb-7 text-xl">Events {events.length}</p>}
             {
                 events &&
-                <div className="grid grid-cols-3">
+                <div className="grid grid-cols-4 gap-5">
                     {
                         events.map((e, indx) => {
                             return <EventCard refetch={loadEvents} key={indx} handleDelete={handleDelete} isMyEvent={true} event={e} />
                         })
                     }
                 </div>
+            }
+            {
+                (!events || events?.length == 0) &&
+                    <div className="flex flex-col items-center justify-center py-36 text-center">
+                        <p className="text-lg font-semibold text-gray-500">
+                            No events to display yet, <span className="font-medium text-[#5f45ba]"><Link to="/addEvents" className="hover:underline">Create some?</Link></span>
+                        </p>
+                    </div>
             }
 
         </div>

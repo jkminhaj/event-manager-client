@@ -6,8 +6,8 @@ const Events = () => {
   const user = JSON.parse(localStorage.getItem("user") || "null");
   const userId = user?._id;
 
-  const [events, setEvents] = useState([]);       
-  const [displayed, setDisplayed] = useState([]);  
+  const [events, setEvents] = useState([]);
+  const [displayed, setDisplayed] = useState([]);
 
   const [searchText, setSearchText] = useState("");
   const [filterType, setFilterType] = useState("");
@@ -94,16 +94,15 @@ const Events = () => {
         `http://localhost:5000/api/events/join/${event._id}`,
         { userId }
       );
-      
+
       loadEvents();
-      alert(data.message);
     } catch (err) {
       const msg = err.response?.data?.error || err.response?.data?.message;
       alert(msg || "Something went wrong");
     }
   };
 
-  
+
   const clearFilters = () => {
     setSearchText("");
     setFilterType("");
@@ -111,23 +110,23 @@ const Events = () => {
 
   return (
     <div>
-      <h1 className="mb-4 text-xl font-bold">
-        Events ({displayed.length})
-      </h1>
 
-      <div className="mb-4 flex items-center gap-2">
+
+      <div className="my-4 mt-7 flex flex-wrap items-center gap-3">
+
         <input
           type="text"
           placeholder="Search by title"
-          className="rounded border px-2 py-1"
+          className="flex-1 min-w-[150px] rounded-xl border border-gray-300 px-3 py-2  text-gray-800 outline-none placeholder:text-gray-500"
           value={searchText}
-          onChange={e => setSearchText(e.target.value)}
+          onChange={(e) => setSearchText(e.target.value)}
         />
+
 
         <select
           value={filterType}
-          onChange={e => setFilterType(e.target.value)}
-          className="rounded border px-2 py-1"
+          onChange={(e) => setFilterType(e.target.value)}
+          className="min-w-[160px] cursor-pointer rounded-xl  px-3 py-2 font-semibold text-gray-800 outline-none"
         >
           <option value="">Select a date range</option>
           <option value="today">Today</option>
@@ -137,15 +136,19 @@ const Events = () => {
           <option value="lastMonth">Last Month</option>
         </select>
 
+
         <button
           onClick={clearFilters}
-          className="rounded border bg-gray-100 px-3 py-1"
+          className="rounded-xl cursor-pointer bg-[#5f45ba] px-4 py-2 font-semibold text-white transition hover:bg-[#4e3ba1]"
         >
-          Clear Filters ✖
+          Clear Filters
         </button>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <h1 className="mb-7 text-xl ">
+        Events ({displayed.length})
+      </h1>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {displayed.map(evt => (
           <EventCard
             key={evt._id}
@@ -154,6 +157,15 @@ const Events = () => {
           />
         ))}
       </div>
+
+      {
+        (displayed?.length == 0) &&
+        <div className="flex flex-col items-center justify-center py-36 text-center">
+          <p className="text-lg font-semibold text-gray-500">
+            No events found !
+          </p>
+        </div>
+      }
     </div>
   );
 };

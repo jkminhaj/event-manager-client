@@ -4,15 +4,15 @@ import UpdateEventModal from "../../MyEvents/UpdateEventModal";
 const EventCard = ({
     event,
     handleJoinNow,
-    isMyEvent = false ,
-    handleDelete ,
+    isMyEvent = false,
+    handleDelete,
     refetch
 }) => {
     const user = JSON.parse(localStorage.getItem("user")) || null;
-    const userId = user._id ;
+    const userId = user._id;
     let isJoined = false;
 
-    const [open , setOpen ] = useState(false);
+    const [open, setOpen] = useState(false);
     isJoined = event.joinedUsers.includes(userId);
 
     const date = new Date(event.dateTime).toLocaleString('en-BD', {
@@ -26,39 +26,66 @@ const EventCard = ({
     });
 
     return (
-        <div className="max-w-md mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
-            <div className="p-6">
-                <h2 className="text-2xl font-bold text-indigo-600">{event.title}</h2>
-                <h3 className="text-lg font-semibold text-gray-800 mt-1">{event.name}</h3>
-                <p className="text-sm text-gray-500 mt-1">{event.location}</p>
-                <p className="text-sm text-gray-500 mb-3">{date}</p>
-                <p className="text-gray-700 text-sm mb-4">{event.description}</p>
-                <span className="text-gray-600">Attendees: {event.attendeeCount}</span>
-                {
-                    !isMyEvent &&
-                    <div className="flex items-center justify-between text-sm">
-                        {
-                            isJoined ?
-                                <button onClick={() => { handleJoinNow(event) }} className="bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 transition duration-200">
-                                    Joined
-                                </button> :
-                                <button onClick={() => { handleJoinNow(event) }} className="bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 transition duration-200">
-                                    Join Now
-                                </button>
-                        }
-                    </div>
-                }
+        <div className="relative mx-auto w-full rounded-2xl bg-white shadow-lg ring-1 ring-gray-100">
 
-                {
-                    isMyEvent &&
-                    <div className="flex gap-6 mt-3.5">
-                        <button onClick={()=>{setOpen(true)}}>Update</button>
-                        <button onClick={()=>{handleDelete(event)}}>Delete</button>
+            <div className="p-6 space-y-3">
+
+                <h2 className="text-2xl font-bold text-[#5f45ba]">{event.title}</h2>
+
+
+                <h3 className="text-lg font-semibold text-gray-800">{event.name}</h3>
+
+
+                <p className="text-sm text-gray-500">{event.location}</p>
+                <p className="text-sm text-gray-500">{date}</p>
+
+
+                <p className="text-sm text-gray-700">{event.description}</p>
+
+
+                <span className="block text-sm font-medium text-gray-600">
+                    Attendees: {event.attendeeCount}
+                </span>
+
+                {!isMyEvent && (
+                    <div className="pt-1">
+                        <button
+                            onClick={() => handleJoinNow(event)}
+                            disabled={isJoined}
+                            className={`w-full rounded-xl py-2 font-semibold text-white shadow-md transition
+                            ${isJoined ? 'bg-gray-400 cursor-default' : 'bg-[#5f45ba]  cursor-pointer hover:bg-[#4e3ba1]'}`}
+                        >
+                            {isJoined ? 'Joined' : 'Join Now'}
+                        </button>
                     </div>
-                }
+                )}
+
+                {isMyEvent && (
+                    <div className="flex gap-4 pt-1">
+                        <button
+                            onClick={() => setOpen(true)}
+                            className="flex-1 cursor-pointer rounded-xl bg-[#5e45ba1e] py-2 font-semibold text-[#5f45ba] transition hover:bg-[#d9d2ff]"
+                        >
+                            Update
+                        </button>
+                        <button
+                            onClick={() => handleDelete(event)}
+                            className="flex-1  cursor-pointer rounded-xl bg-red-50 py-2 font-semibold text-red-600 transition hover:bg-red-100"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                )}
             </div>
-            <UpdateEventModal refetch={refetch} isOpen={open} onClose={()=>{setOpen(false)}} event={event}/>
+
+            <UpdateEventModal
+                refetch={refetch}
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                event={event}
+            />
         </div>
+
     );
 };
 

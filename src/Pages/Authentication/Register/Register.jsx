@@ -11,7 +11,7 @@ const Register = () => {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const  navigate = useNavigate();
+    const navigate = useNavigate();
     const handleChange = e =>
         setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -22,7 +22,7 @@ const Register = () => {
 
         try {
             const res = await axios.post("http://localhost:5000/api/users/register", form);
-            alert("Registration successful!");
+            // alert("Registration successful!");
             console.log(res.data);
             navigate("/signin");
         } catch (err) {
@@ -34,15 +34,16 @@ const Register = () => {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <div className="flex min-h-screen items-center justify-center">
             <form
                 onSubmit={handleSubmit}
-                className="w-full max-w-sm rounded-lg bg-white p-8 shadow-md"
+                className="w-full max-w-[400px] bg-white p-8"
             >
-                <h2 className="mb-6 text-2xl font-bold text-indigo-600">Register</h2>
+                <h2 className="text-2xl text-center font-bold text-black">REGISTER</h2>
+                <p className="mb-8 text-center">Create your account to start managing events.</p>
 
                 <input
-                    className="mb-3 w-full rounded border p-2"
+                    className="mb-3 w-full font-semibold outline-0 rounded-xl bg-[#5e45ba1e] px-4 p-2"
                     type="text"
                     name="name"
                     placeholder="Name"
@@ -52,7 +53,7 @@ const Register = () => {
                 />
 
                 <input
-                    className="mb-3 w-full rounded border p-2"
+                    className="mb-3 w-full font-semibold outline-0 rounded-xl bg-[#5e45ba1e] px-4 p-2"
                     type="email"
                     name="email"
                     placeholder="Email"
@@ -62,7 +63,7 @@ const Register = () => {
                 />
 
                 <input
-                    className="mb-3 w-full rounded border p-2"
+                    className="mb-3 w-full font-semibold outline-0 rounded-xl bg-[#5e45ba1e] px-4 p-2"
                     type="password"
                     name="password"
                     placeholder="Password"
@@ -72,7 +73,7 @@ const Register = () => {
                 />
 
                 <input
-                    className="mb-3 w-full rounded border p-2"
+                    className="mb-3 w-full font-semibold outline-0 rounded-xl bg-[#5e45ba1e] px-4 p-2"
                     type="url"
                     name="image"
                     placeholder="Photo URL (https://...)"
@@ -81,19 +82,23 @@ const Register = () => {
                     onChange={handleChange}
                 />
 
-                {error && <p className="mb-3 text-sm text-red-600">{error}</p>}
+                {error && <p className="mb-3 ml-4 text-sm text-red-600">{error}</p>}
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full rounded bg-indigo-600 py-2 text-white hover:bg-indigo-700"
-                >
-                    {loading ? "Submitting..." : "Register"}
-                </button>
+                <div className="flex mt-5 justify-center">
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="cursor-pointer font-semibold shadow-xl bg-[#5f45ba] px-4 rounded-xl py-2 text-white hover:bg-[#5f45ba]"
+                    >
+                        {loading ? "Registering..." : "Register"}
+                    </button>
+                </div>
+
+                <div className="text-center mt-5">
+                    Already a user? <span><Link to="/signin" className="text-[#5f45ba] hover:underline">Login here</Link></span>
+                </div>
             </form>
-            <div>
-                Already User ? <span><Link to="/signin">Login here</Link></span>
-            </div>
+
 
         </div>
     );
