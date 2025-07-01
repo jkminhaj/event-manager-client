@@ -13,7 +13,7 @@ const Events = () => {
   const [filterType, setFilterType] = useState("");
 
   const loadEvents = async () => {
-    const { data } = await axios("http://localhost:5000/api/events");
+    const { data } = await axios("https://event-manager-server-eta.vercel.app/api/events");
     const sorted = data.sort(
       (a, b) => new Date(a.dateTime) - new Date(b.dateTime)
     );
@@ -91,7 +91,7 @@ const Events = () => {
     if (!userId) return alert("Please sign in first");
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/api/events/join/${event._id}`,
+        `https://event-manager-server-eta.vercel.app/api/events/join/${event._id}`,
         { userId }
       );
 

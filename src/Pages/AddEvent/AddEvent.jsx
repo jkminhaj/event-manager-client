@@ -29,7 +29,7 @@ const AddEvent = () => {
         setMessage('');
 
         try {
-            const response = await axios.post('http://localhost:5000/api/events', formData);
+            const response = await axios.post('https://event-manager-server-eta.vercel.app/api/events', formData);
             console.log('Submitted:', response.data);
             setMessage('Event added successfully!');
             setFormData(initialFormData);

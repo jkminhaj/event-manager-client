@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 const NavBar = () => {
     const user = JSON.parse(localStorage.getItem("user")) || null;
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const navigate = useNavigate();
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -22,6 +23,8 @@ const NavBar = () => {
     const handleLogout = () => {
         localStorage.setItem("user", null);
         setOpen(false)
+        navigate("/");
+
     }
     return (
         <nav className="shadow ">
@@ -32,7 +35,7 @@ const NavBar = () => {
                         src="https://images.seeklogo.com/logo-png/39/2/orchid-oxt-logo-png_seeklogo-398560.png" alt="" />
                     <p className="text-3xl font-bold text-[#5f45ba]">Eventure</p>
                 </div>
-                <div className="flex font-semibold items-center justify-between gap-5">
+                <div className=" flex font-semibold items-center justify-between gap-5">
                     <div className="flex flex-wrap items-center justify-center gap-2 py-2">
                         {
                             !user &&

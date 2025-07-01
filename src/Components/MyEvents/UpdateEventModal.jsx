@@ -16,7 +16,7 @@ const UpdateEventModal = ({ isOpen, onClose, event, refetch }) => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/events/${event._id}`,
+        `https://event-manager-server-eta.vercel.app/api/events/${event._id}`,
         formData
       );
       console.log(res)

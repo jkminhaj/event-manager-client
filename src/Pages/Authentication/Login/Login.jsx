@@ -16,7 +16,7 @@ const Login = () => {
         setLoading(true);
         setError("");
         try {
-            const res = await axios.post("http://localhost:5000/api/users/login", form);
+            const res = await axios.post("https://event-manager-server-eta.vercel.app/api/users/login", form);
             console.log(res.data.user);
             localStorage.setItem("user", JSON.stringify(res.data.user));
             navigate("/");

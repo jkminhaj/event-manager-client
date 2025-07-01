@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const Home = () => {
+    const user = JSON.parse(localStorage.getItem("user") || "null");
     return (
         <div className="bg-white text-gray-800">
 
@@ -11,7 +12,7 @@ const Home = () => {
                     Welcome to EventSphere — your all-in-one platform to organize, join, and explore events.
                 </p>
                 <div className="mt-6">
-                    <Link to="/signin">
+                    <Link to={user ? "/events" :"/signin"}>
                         <button className="cursor-pointer rounded-xl bg-white text-[#5f45ba] font-semibold px-6 py-3 hover:bg-gray-100 transition">
                             Explore Events
                         </button>

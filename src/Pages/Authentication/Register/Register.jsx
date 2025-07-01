@@ -21,7 +21,7 @@ const Register = () => {
         setError("");
 
         try {
-            const res = await axios.post("http://localhost:5000/api/users/register", form);
+            const res = await axios.post("https://event-manager-server-eta.vercel.app/api/users/register", form);
             // alert("Registration successful!");
             console.log(res.data);
             navigate("/signin");

@@ -13,7 +13,7 @@ const MyEvents = () => {
     }, [])
 
     const loadEvents = async () => {
-        const res = await axios(`http://localhost:5000/api/events/myevents/${userId}`);
+        const res = await axios(`https://event-manager-server-eta.vercel.app/api/events/myevents/${userId}`);
         setEvents(res.data);
         // console.log(res.data);
     }
@@ -29,7 +29,7 @@ const MyEvents = () => {
                 confirmButtonText: "Yes, delete it!"
             });
             if (result.isConfirmed) {
-                await axios.delete(`http://localhost:5000/api/events/${event._id}`);
+                await axios.delete(`https://event-manager-server-eta.vercel.app/api/events/${event._id}`);
 
                 await Swal.fire({
                     title: "Deleted!",
