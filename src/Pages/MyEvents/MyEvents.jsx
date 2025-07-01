@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import EventCard from "../../Components/Navigation/Events/EventCard";
 
 const MyEvents = () => {
-    const userId = "68625ba3bfc3109a8a520545";
+    const user = JSON.parse(localStorage.getItem("user")) || null;
+    const userId = user._id ;
     const [events, setEvents] = useState(null);
     useEffect(() => {
         loadEvents();
     }, [])
 
     const loadEvents = async () => {
-        const res = await axios("http://localhost:5000/api/events");
+        const res = await axios(`http://localhost:5000/api/events/myevents/${userId}`);
         setEvents(res.data);
-        console.log(res.data);
+        // console.log(res.data);
     }
     const handleDelete = async (event) => {
     try {

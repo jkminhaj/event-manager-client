@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import EventCard from "../../Components/Navigation/Events/EventCard";
 
 const Events = () => {
-    const userId = "68625ba3bfc3109a8a520545";
+    const user = JSON.parse(localStorage.getItem("user")) || null;
+    const userId = user._id ;
     const [events, setEvents] = useState(null);
     useEffect(() => {
         loadEvents();

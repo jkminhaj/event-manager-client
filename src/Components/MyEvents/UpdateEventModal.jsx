@@ -76,6 +76,14 @@ const UpdateEventModal = ({ isOpen, onClose, event, refetch }) => {
           />
           <input
             className="w-full rounded border p-2"
+            name="attendeeCount"
+            value={formData.attendeeCount || ""}
+            onChange={handleChange}
+            placeholder="Attendees"
+            required
+          />
+          <input
+            className="w-full rounded border p-2"
             type="datetime-local"
             name="dateTime"
             value={

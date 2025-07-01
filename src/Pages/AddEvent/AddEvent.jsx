@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const AddEvent = () => {
-    const userId = "68625ba3bfc3109a8a520545";
+    const user = JSON.parse(localStorage.getItem("user")) || null;
+    const userId = user._id ;
     const [formData, setFormData] = useState({
         title: '',
-        name: '',
+        name: user.name,
         description: '',
         location: '',
         dateTime: '',

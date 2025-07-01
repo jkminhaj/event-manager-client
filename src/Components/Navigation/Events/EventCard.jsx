@@ -8,7 +8,8 @@ const EventCard = ({
     handleDelete ,
     refetch
 }) => {
-    const userId = "68625ba3bfc3109a8a520545";
+    const user = JSON.parse(localStorage.getItem("user")) || null;
+    const userId = user._id ;
     let isJoined = false;
 
     const [open , setOpen ] = useState(false);
